@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
   appBar: {
     backgroundColor: '#262626',
     color: '#ffffffde',
-    fontFamily: 'Bungee, cursive',
+    fontFamily: 'Bungee, Roboto, cursive',
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -40,7 +40,8 @@ const useStyles = makeStyles(theme => ({
 
 const StyledTypography = withStyles({
   h5: {
-    fontFamily: 'Bungee, cursive',
+    fontFamily: 'Bungee, Roboto, cursive',
+    marginRight: '-100px',
   }
 })(Typography);
 
