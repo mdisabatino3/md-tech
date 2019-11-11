@@ -22,11 +22,10 @@ const logoTextStyle = {
 };
 const logoStyle = {
   position: "relative",
-  width: "auto",
-  height: "auto",
+  width: "300px",
+  height: "300px",
   whiteSpace: "nowrap",
   display: "inline-block",
-  transform: "translate(-30%,-25%)"
 };
 
 function AnimatedLogo() {
