@@ -6,7 +6,7 @@ import AnimatedLogo from './AnimatedLogo';
 const useStyles = makeStyles(theme => ({
   jumbotron: {
     backgroundColor: '#121212' ,
-    height: '85vh',
+    height: '560px',
     width: '100%',
   },
 }));

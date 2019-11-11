@@ -26,7 +26,7 @@ const logoStyle = {
   height: "auto",
   whiteSpace: "nowrap",
   display: "inline-block",
-  transform: "translate(-50%,-50%)"
+  transform: "translate(-50%,-25%)"
 };
 
 function AnimatedLogo() {
