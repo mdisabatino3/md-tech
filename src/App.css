@@ -25,7 +25,7 @@
     height: 560px;
 }
 
-@media only screen and (max-height: 560px) {
+@media only screen and (max-height: 900px) {
     .jumbotron {
         height: 360px;
     }
