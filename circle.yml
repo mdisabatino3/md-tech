@@ -1,0 +1,40 @@
+version: 2.1
+jobs:
+  deploy:
+    docker:
+      - image: node:12
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "7c:36:1a:ca:1d:82:33:26:5d:ea:a8:f9:a2:8b:80:37"
+      - checkout
+      - restore_cache:
+          keys:
+          - cache-{{ arch }}-{{ .Branch }}-{{ checksum "package.json" }}
+      - run:
+          name: Yarn install
+          command: yarn install
+      - save_cache:
+          key: cache-{{ arch }}-{{ .Branch }}-{{ checksum "package.json" }}
+          paths:
+          - ~/.cache
+      - run:
+        # for now ignore complile errors since can't show just warnings
+          command: CI= yarn build || true
+      - run:
+          command: git config user.email "mdisabatino3@gmail.com" && git config user.name "mdisabatino3"
+      - run:
+          command: git stash -u && git checkout origin/gh-pages && git ls-files | tail -n +2 | xargs rm -rf && cp build/* . -r && cp index.html 404.html && git add --all && git commit -m '[deploy]' && git push origin HEAD:gh-pages
+
+workflows:
+  build:
+    jobs:
+      - deploy:
+        branches:
+          ignore:
+            - gh-pages
+  version: 2
+
+# Semantic-release bot needs env vars:
+#   GH_TOKEN: repo, read:org, write:repo_hook, user:email
+#   NPM_TOKEN: read/release
