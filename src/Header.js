@@ -41,7 +41,7 @@ const useStyles = makeStyles(theme => ({
 const StyledTypography = withStyles({
   h5: {
     fontFamily: 'Bungee, Roboto, cursive',
-    marginRight: '-20px',
+    marginRight: '-30px',
     display: 'inline-block',
     whiteSpace: 'inherit',
   }
