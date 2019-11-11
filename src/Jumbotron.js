@@ -1,20 +1,17 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import AnimatedLogo from './AnimatedLogo';
+import './App.css';
 
-const useStyles = makeStyles(theme => ({
-  jumbotron: {
+const jumbotronStyle = {
     backgroundColor: '#121212' ,
-    height: '560px',
     width: '100%',
-  },
-}));
+}
+
 
 export const Jumbotron = () => {
-  const classes = useStyles();
   return(
-    <Grid container className={classes.jumbotron} justify="center" alignItems="center">
+    <Grid container style={jumbotronStyle} className="jumbotron" justify="center" alignItems="center">
       <AnimatedLogo></AnimatedLogo>
     </Grid>
   );
