@@ -22,7 +22,7 @@ const logoTextStyle = {
 };
 const logoStyle = {
   position: "relative",
-  width: "300px",
+  width: "280px",
   height: "300px",
   whiteSpace: "nowrap",
   display: "inline-block",
