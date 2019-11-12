@@ -9,6 +9,8 @@ const reducer = (state, action) => {
    switch (action.type) {
       case actionTypes.TOGGLE_DRAWER:
          return { ...state, drawerOpen: action.drawerOpen }
+      case actionTypes.SHOW_CONTACT_CARD:
+         return {...state, showContactCard: action.showContactCard}
       default:
          return state
    }

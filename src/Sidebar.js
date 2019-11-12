@@ -52,7 +52,6 @@ const StyledDrawer = withStyles({
 export const SideBar = (props) => {
   const {drawerOpen} = props;
   const classes = useStyles();
-  const preventDefault = event => event.preventDefault();
   const sideList = side => (
     <div
       className={classes.list}
@@ -60,7 +59,7 @@ export const SideBar = (props) => {
       onClick={toggleDrawer(false)}
       onKeyDown={toggleDrawer(false)}
     >
-    <Typography variant="h6"><Link href="#" onClick={preventDefault} className={classes.link}>Michael DiSabatino Tech</Link></Typography>
+    <Typography variant="h6"><Link href="#" onClick={showContactCard(true)} className={classes.link}>Michael DiSabatino Tech</Link></Typography>
       <List>
         {['Home', 'About', 'Contact', 'Portfolio'].map((text, index) => (
           <ListItem className={classes.listItem} button key={text}>
@@ -85,5 +84,11 @@ const toggleDrawer = (open) => event => {
     return;
   }
 
-  store.dispatch(actions.toggleDrawer(open))
+  store.dispatch(actions.toggleDrawer(open));
+};
+
+const showContactCard = (showContactCard) => event => {
+  event.preventDefault();
+
+  store.dispatch(actions.showContactCard(showContactCard));
 };

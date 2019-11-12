@@ -31,7 +31,6 @@ const logoStyle = {
 function AnimatedLogo() {
   useEffect(() => {
     animate();
-    console.log("component did mount");
   });
   return (
     <div className="logo" style={logoStyle}>
@@ -117,13 +116,8 @@ function AnimatedLogo() {
 
 function animate() {
   const poly1path = d3.select(".poly1path");
-  console.log(poly1path);
   const poly2path = d3.select(".poly2path");
   const poly3path = d3.select(".poly3path");
-
-  console.log(poly1path.node().getTotalLength());
-  console.log(poly2path.node().getTotalLength());
-  console.log(poly3path.node().getTotalLength());
   const poly1len = poly1path.node().getTotalLength();
   const poly2len = poly2path.node().getTotalLength();
   const poly3len = poly3path.node().getTotalLength();
@@ -191,11 +185,9 @@ function animate() {
     .select(".logotext")
     .selectAll("path")
     .attr("stroke-dasharray", function(d, i) {
-      console.log("node ", i, " is ", this.getTotalLength());
       return this.getTotalLength() + "px";
     })
     .attr("stroke-dashoffset", function(d, i) {
-      console.log("node ", i, " is ", d);
       return this.getTotalLength() + "px";
     })
     .attr("stroke", "#FFFFFF")

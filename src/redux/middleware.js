@@ -7,4 +7,11 @@ const toggleDrawerMiddleware = ({ getState, dispatch }) => next => action => {
   next(action);
 }
 
-export const middlewares = [toggleDrawerMiddleware];
+const showContactCardMiddleware = ({ getState, dispatch }) => next => action => {
+  if (action.type === actionTypes.SHOW_CONTACT_CARD) {
+    console.log("showContactCardMiddleware hit");
+  }
+  next(action);
+}
+
+export const middlewares = [toggleDrawerMiddleware, showContactCardMiddleware];
