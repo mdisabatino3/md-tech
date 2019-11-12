@@ -62,7 +62,7 @@ export const SideBar = (props) => {
     <Typography variant="h6"><Link href="#" onClick={showContactCard(true)} className={classes.link}>Michael DiSabatino Tech</Link></Typography>
       <List>
         {['Home', 'About', 'Contact', 'Portfolio'].map((text, index) => (
-          <ListItem className={classes.listItem} button key={text}>
+          <ListItem onClick={text==='Contact' ? showContactCard(true) : console.log("clicked ", text)} className={classes.listItem} button key={text}>
             <ListItemIcon><LaunchIcon className={classes.icon}/></ListItemIcon>
             <StyledListItemText primary={text} />
           </ListItem>
