@@ -1,7 +1,7 @@
 import React from 'react';
 import Drawer from '@material-ui/core/Drawer';
-import {store} from './redux/store';
-import {actions} from './redux/actions';
+import { store } from './redux/store';
+import { actions } from './redux/actions';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -9,7 +9,9 @@ import LaunchIcon from '@material-ui/icons/Launch';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import { Typography } from '@material-ui/core';
-import Link from '@material-ui/core/Link';
+// import Link from '@material-ui/core/Link';
+import { Link } from 'react-router-dom';
+
 
 const useStyles = makeStyles(theme => ({
   list: {
@@ -34,23 +36,38 @@ const useStyles = makeStyles(theme => ({
     paddingLeft: '0.5em',
     display: 'inline-block',
   },
+  listHeading: {
+    margin: theme.spacing(1),
+    color: '#ffffffde',
+    fontFamily: 'Bungee, Roboto, cursive',
+    fontWeight: 'lighter',
+    fontSize: '1.3em',
+    paddingLeft: '0.5em',
+    display: 'inline-block',
+    cursor: 'pointer',
+    '&:hover': {
+      textDecoration: 'underline',
+
+    }
+  }
+
 }));
 
 const StyledListItemText = withStyles({
-  primary : {
+  primary: {
     color: '#ffffffde',
     fontFamily: 'Bungee, Roboto, cursive',
   },
 })(ListItemText);
 
 const StyledDrawer = withStyles({
-  paperAnchorLeft : {
+  paperAnchorLeft: {
     backgroundColor: '#262626',
   }
 })(Drawer);
 
 export const SideBar = (props) => {
-  const {drawerOpen} = props;
+  const { drawerOpen } = props;
   const classes = useStyles();
   const sideList = side => (
     <div
@@ -59,14 +76,20 @@ export const SideBar = (props) => {
       onClick={toggleDrawer(false)}
       onKeyDown={toggleDrawer(false)}
     >
-    <Typography variant="h6"><Link href="#" onClick={showContactCard(true)} className={classes.link}>Michael DiSabatino Tech</Link></Typography>
+      <Typography onClick={showContactCard(true)}  className={classes.listHeading} variant="h6">Michael DiSabatino Tech</Typography>
       <List>
-        {['Home', 'About', 'Contact', 'Portfolio'].map((text, index) => (
-          <ListItem onClick={text==='Contact' ? showContactCard(true) : console.log("clicked ", text)} className={classes.listItem} button key={text}>
-            <ListItemIcon><LaunchIcon className={classes.icon}/></ListItemIcon>
-            <StyledListItemText primary={text} />
+          <ListItem component={Link} to={"/"} onClick={console.log("clicked home")} className={classes.listItem} button key={"home"}>
+            <ListItemIcon><LaunchIcon className={classes.icon} /></ListItemIcon>
+            <StyledListItemText primary={"home"} />
           </ListItem>
-        ))}
+          <ListItem component={Link} to={"/about"} onClick={console.log("clicked about")} className={classes.listItem} button key={"about"}>
+            <ListItemIcon><LaunchIcon className={classes.icon} /></ListItemIcon>
+            <StyledListItemText primary={"about"} />
+          </ListItem>
+          <ListItem onClick={showContactCard(true)} className={classes.listItem} button key={"contact"}>
+            <ListItemIcon><LaunchIcon className={classes.icon} /></ListItemIcon>
+            <StyledListItemText primary={"contact"} />
+          </ListItem>
       </List>
     </div>
   );

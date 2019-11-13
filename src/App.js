@@ -5,7 +5,9 @@ import { Header } from './Header';
 import { SideBar } from './Sidebar';
 import { Jumbotron } from './Jumbotron';
 import { ContactCard } from './ContactCard';
+import { About } from './About';
 import Backdrop from "@material-ui/core/Backdrop";
+import { Route, Switch } from 'react-router-dom';
 
 const backdrop = {
   zIndex: 0,
@@ -23,7 +25,10 @@ function App() {
   return (
     <>
       <Header {...appState}></Header>
-      <Jumbotron></Jumbotron>
+      <Switch>
+        <Route exact path={'/'} component={Jumbotron} />
+        <Route path={'/about'} component={About} />
+      </Switch>
       <SideBar {...appState}></SideBar>
       <ContactCard {...appState}></ContactCard>
       <Backdrop style={backdrop} open={showContactCard} />
