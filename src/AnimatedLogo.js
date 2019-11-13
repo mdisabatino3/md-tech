@@ -31,7 +31,7 @@ const logoStyle = {
 function AnimatedLogo() {
   useEffect(() => {
     animate();
-  });
+  },[]);
   return (
     <div className="logo" style={logoStyle}>
       <svg
@@ -127,6 +127,7 @@ function animate() {
     .attr("stroke", "#31e89f")
     .attr("stroke-width", "5px")
     .attr("stroke-dashoffset", poly1len + "px")
+    .style("shape-rendering", "crispEdges")
     .transition()
     .duration(5000)
     .ease(d3.easeLinear)
@@ -146,6 +147,7 @@ function animate() {
     .attr("stroke", "#31c6e8")
     .attr("stroke-width", "5px")
     .attr("stroke-dashoffset", poly2len + "px")
+    .style("shape-rendering", "crispEdges")
     .transition()
     .delay(1000)
     .duration(5000)
@@ -166,6 +168,7 @@ function animate() {
     .attr("stroke", "#31e8e8")
     .attr("stroke-width", "5px")
     .attr("stroke-dashoffset", poly3len + "px")
+    .style("shape-rendering", "crispEdges")
     .transition()
     .delay(2000)
     .duration(5000)

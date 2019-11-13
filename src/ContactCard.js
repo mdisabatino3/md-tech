@@ -62,6 +62,7 @@ export const ContactCard = (props) => {
   const preventDefault = event => event.preventDefault();
   const node = useRef();
   useEffect(() => {
+    console.log("mounted contact card component");
     // add when mounted
       document.addEventListener("mousedown", handleClick);
 
