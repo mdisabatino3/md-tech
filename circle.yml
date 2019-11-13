@@ -24,7 +24,7 @@ jobs:
       - run:
           command: git config user.email "mdisabatino3@gmail.com" && git config user.name "mdisabatino3"
       - run:
-          command: git stash -u && git checkout origin/gh-pages && git ls-files | tail -n +2 | xargs rm -rf && cp build/* . -r && cp index.html 404.html && git add --all && git commit -m '[deploy]' && git push origin HEAD:gh-pages
+          command: git stash -u && git checkout origin/gh-pages && git ls-files | tail -n +2 | xargs rm -rf && cp build/* . -r && cp index.html 404.html && git add --all && git commit -m '[deploy] [skip ci]' && git push origin HEAD:gh-pages
 
 workflows:
   build:
