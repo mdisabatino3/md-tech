@@ -20,14 +20,17 @@ function App() {
   }, []);
   const showContactCard = appState.showContactCard ? appState.showContactCard : false;
   console.log(showContactCard);
-  console.log(appState);
-  console.log()
+  console.log("appState ",appState);
   return (
     <>
       <Header {...appState}></Header>
       <Switch>
         <Route exact path={'/'} component={Jumbotron} />
-        <Route path={'/about'} component={About} />
+        <Route 
+          path={'/about'} 
+          {...appState}
+          render = {() => <About {...appState}/>}
+        />
       </Switch>
       <SideBar {...appState}></SideBar>
       <ContactCard {...appState}></ContactCard>
