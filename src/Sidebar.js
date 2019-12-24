@@ -88,7 +88,7 @@ export const SideBar = (props) => {
           </ListItem>
           <ListItem component={Link} to={"/merryChristmasDad"} onClick={console.log("clicked merry christmas dad")} className={classes.listItem} button key={"dad"}>
             <ListItemIcon><LaunchIcon className={classes.icon} /></ListItemIcon>
-            <StyledListItemText primary={"merry christmas gary"} />
+            <StyledListItemText primary={"merry christmas dad"} />
           </ListItem>
           <ListItem component={Link} to={"/about"} onClick={console.log("clicked about")} className={classes.listItem} button key={"about"}>
             <ListItemIcon><LaunchIcon className={classes.icon} /></ListItemIcon>
