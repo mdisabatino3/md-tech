@@ -8,6 +8,9 @@ import { ContactCard } from './ContactCard';
 import { About } from './About';
 import Backdrop from "@material-ui/core/Backdrop";
 import { Route, Switch } from 'react-router-dom';
+import { MerryChristmasGabby } from './MerryChristmasGabby';
+
+import { MerryChristmasDad } from './MerryChristmasDad';
 
 const backdrop = {
   zIndex: 0,
@@ -26,6 +29,8 @@ function App() {
       <Header {...appState}></Header>
       <Switch>
         <Route exact path={'/'} component={Jumbotron} />
+        <Route exact path={'/merryChristmasGabby'} component={MerryChristmasGabby} />
+        <Route exact path={'/merryChristmasDad'} component={MerryChristmasDad} />
         <Route 
           path={'/about'} 
           {...appState}
