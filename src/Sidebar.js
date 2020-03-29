@@ -82,14 +82,14 @@ export const SideBar = (props) => {
             <ListItemIcon><LaunchIcon className={classes.icon} /></ListItemIcon>
             <StyledListItemText primary={"home"} />
           </ListItem>
-          <ListItem component={Link} to={"/merryChristmasGabby"} onClick={console.log("clicked merry christmas gabby")} className={classes.listItem} button key={"gabby"}>
+          {/* <ListItem component={Link} to={"/merryChristmasGabby"} onClick={console.log("clicked merry christmas gabby")} className={classes.listItem} button key={"gabby"}>
             <ListItemIcon><LaunchIcon className={classes.icon} /></ListItemIcon>
             <StyledListItemText primary={"merry christmas gabby"} />
           </ListItem>
           <ListItem component={Link} to={"/merryChristmasDad"} onClick={console.log("clicked merry christmas dad")} className={classes.listItem} button key={"dad"}>
             <ListItemIcon><LaunchIcon className={classes.icon} /></ListItemIcon>
             <StyledListItemText primary={"merry christmas dad"} />
-          </ListItem>
+          </ListItem> */}
           <ListItem component={Link} to={"/about"} onClick={console.log("clicked about")} className={classes.listItem} button key={"about"}>
             <ListItemIcon><LaunchIcon className={classes.icon} /></ListItemIcon>
             <StyledListItemText primary={"about"} />
