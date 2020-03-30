@@ -11,6 +11,7 @@ import { Route, Switch } from 'react-router-dom';
 import { MerryChristmasGabby } from './MerryChristmasGabby';
 
 import { MerryChristmasDad } from './MerryChristmasDad';
+import { Corona } from './Corona';
 
 const backdrop = {
   zIndex: 0,
@@ -29,6 +30,7 @@ function App() {
       <Header {...appState}></Header>
       <Switch>
         <Route exact path={'/'} component={Jumbotron} />
+        <Route exact path={'/corona'} component={Corona} />
         <Route exact path={'/merryChristmasGabby'} component={MerryChristmasGabby} />
         <Route exact path={'/merryChristmasDad'} component={MerryChristmasDad} />
         <Route 

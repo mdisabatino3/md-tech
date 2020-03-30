@@ -3,7 +3,6 @@ import * as d3 from "d3";
 import "./Timeline.css";
 import { store } from './redux/store';
 import { actions } from './redux/actions';
-import { minWidth } from "@material-ui/system";
 
 function Timeline(props) {
   useEffect(() => {

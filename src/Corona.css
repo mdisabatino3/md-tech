@@ -1,0 +1,212 @@
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.card-body {
+    display: flex;
+    height: 700px;
+    width: 100%;
+    justify-content: center;
+    align-content: center;
+}
+
+li {
+    display: inline-block;
+    margin: 0 10px;
+}
+
+#county {
+    fill: #D2D2D2;
+}
+
+#county:hover {
+    fill: red;
+    opacity: 0.5;
+}
+
+.state-borders {
+    fill: none
+}
+
+.county-borders {
+    fill: none;
+    stroke: #121212;
+    stroke-width: 0.5px;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+    pointer-events: none;
+}
+
+.us-border {
+    fill: none;
+    stroke: black;
+}
+
+div.tooltip {
+    position: absolute;
+    text-align: left;
+    padding: 12px;
+    font: 12px sans-serif;
+    color: rgb(247, 247, 247);
+    background: black;
+    ;
+    border: 0px;
+    pointer-events: none;
+    border-radius: 10%;
+}
+
+div#banner.row {
+    margin-right: 0px;
+    margin-left: 0px;
+}
+
+#banner {
+    display: flex;
+    justify-content: center;
+    padding-top: 1.5rem;
+    background-color: rgb(0, 178, 160);
+    width: 100%;
+    height: 6rem;
+    color: rgb(247, 247, 247);
+    font-size: 2rem;
+}
+
+#mapwrapper {
+    height: 100%;
+    width: 100%
+}
+
+#map {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+#mapsvg {
+    width: 60%;
+    height: 90%;
+}
+
+#maprow {
+    height: 80%;
+}
+
+#disclaimer {
+    text-align: left;
+    padding-left: 1.5rem;
+    margin-left: 0px;
+    margin-right: 0px;
+    width: 100%;
+    font-size: 1.5rem;
+}
+
+#sidebar {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(0, 178, 160);
+    margin-right: 5%;
+    color: rgb(247, 247, 247);
+    padding-left: 0px;
+    padding-right: 0px;
+    height: 80vh;
+}
+
+#info {
+    position: relative;
+    margin-top: 20px;
+    width: 100%;
+}
+
+#countySummary {
+    padding-left: 1.5rem;
+    text-align: left;
+    font-size: 1.5rem;
+}
+
+#scrollable {
+    overflow-y: auto;
+    height: 100%;
+}
+
+#countyList {
+    margin-top: 20px;
+    text-align: left;
+    width: 90%;
+    height: 90px;
+    line-height: 90px;
+    padding-top: 1rem;
+}
+
+#countyListItem {
+    border-bottom: 1px solid #FFFFFF;
+    width: 100%;
+    height: 80px;
+    line-height: 80px;
+}
+
+#townshipDetail {
+    font-size: 1.5rem;
+    line-height: 1.5rem;
+}
+
+.shadow {
+    -moz-box-shadow: 3px 3px 5px 6px #ccc;
+    -webkit-box-shadow: 3px 3px 5px 6px #ccc;
+    box-shadow: 3px 3px 5px 6px #ccc;
+}
+
+.loader {
+    border: 16px solid #f3f3f3;
+    /* Light grey */
+    border-top: 16px solid rgb(0, 178, 160);
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+    display: inline-block;
+}
+
+#selection {
+    padding-top: 1.5rem;
+    background-color: rgb(1, 80, 90);
+    width: 100%;
+    font-size: 1.6rem;
+}
+
+select {
+    margin-bottom: 2rem;
+    width: 90%;
+}
+
+.centered {
+    position: fixed;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@media only screen and (max-width: 576px) {
+    h1 {
+        font-size: 2rem;
+    }
+    #sidebar {
+        height: 50vh;
+    }
+    #mapwrapper {
+        height: 80vh;
+        margin-top: 5vh;
+    }
+}
