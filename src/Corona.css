@@ -5,7 +5,7 @@ ul {
 
 .card-body {
     display: flex;
-    height: 700px;
+    height: 80vh;
     width: 100%;
     justify-content: center;
     align-content: center;
@@ -86,7 +86,7 @@ div#banner.row {
 }
 
 #mapsvg {
-    width: 60%;
+    width: 90%;
     height: 90%;
 }
 
