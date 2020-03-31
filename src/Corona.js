@@ -9,7 +9,7 @@ export const Corona = (props) => {
   }, []);
   function buildCoronaMap() {
     console.log("building corona map");
-    var svg = d3.select("#mapsvg").style("margin-top","0px").style("display","none").style("background-color","#FFFFFF");
+    var svg = d3.select("#mapsvg").style("margin-top","0px").style("display","none").style("background-color","#A2A2A2");
     var path = d3.geoPath();
     var tooltipHeight = 60;
     var tooltipWidth = 200;
