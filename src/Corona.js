@@ -20,7 +20,7 @@ export const Corona = (props) => {
 
     var stateIds = [];
 
-    var colorScale = d3.scaleLinear()
+    var colorScale = d3.scaleLog()
       .interpolate(d3.interpolateRgb)
       .range([d3.rgb("#FFFFFF"), d3.rgb('#710019')]);
 
