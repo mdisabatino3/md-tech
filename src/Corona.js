@@ -48,6 +48,7 @@ export const Corona = (props) => {
       d3.csv("https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv").then(function(covidData) {
         console.log("covid data " + covidData);
         var extent = d3.extent(covidData, function(d) {return parseInt(d.cases);})
+        extent[0] = 1;
         colorScale.domain(extent);
         us.objects.counties.geometries.forEach(function(d) {
           d.properties.id = d.id;
