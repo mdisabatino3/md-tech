@@ -15,14 +15,12 @@ export const Corona = (props) => {
     if (!localStorage.getItem("countyDataByFips")) {
       var countyDataByFips = {};
       await d3.csv("https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv").then(function(covidData) {
-        console.log("getting county data from github");
         let dayFilter = moment().subtract(3,'d');
         covidData = covidData.filter(el => dayFilter.isBefore(el.date)).sort(function(a,b) {
           a = new Date(a.date);
           b = new Date(b.date);
           return a < b ? 1 : -1;
         });
-        console.log(covidData);
         covidData.forEach((el) => {
           if(countyDataByFips[el.fips] == null) {
             countyDataByFips[el.fips]=[el];
@@ -42,7 +40,6 @@ export const Corona = (props) => {
 
       return countyDataByFips;
     } else{
-      console.log("getting county data from local storage");
       return JSON.parse(localStorage.getItem("countyDataByFips"));
     }
   }
@@ -51,7 +48,6 @@ export const Corona = (props) => {
       var usTopoJson = {};
       var stateIds = {};
       await d3.json("https://cdn.jsdelivr.net/npm/us-atlas@3/counties-albers-10m.json").then(function(us) {
-        console.log("got topojson");
         us.objects.states.geometries.forEach(geometry => {
           stateIds[geometry.id] = geometry.properties.name;
         })
@@ -70,7 +66,6 @@ export const Corona = (props) => {
     if (!localStorage.getItem("stateDataByFips")) {
       var stateDataByFips = {};
       await d3.csv("https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv").then(function(stateDataFromGit) {
-        console.log("Getting state coronavirus data");  
         stateDataFromGit = stateDataFromGit.sort(function(a,b) {
           a = new Date(a.date);
           b = new Date(b.date);
@@ -106,7 +101,6 @@ export const Corona = (props) => {
           newCases: newCases,
           newDeaths: newDeaths
         })
-        console.log("US DATA SET");
 
         let paTotalCases = stateDataByFips["42"][0].cases;
         let paCasesYesterday = stateDataByFips["42"][1].cases;
@@ -114,7 +108,6 @@ export const Corona = (props) => {
         let paDeathsYesterday = stateDataByFips["42"][1].deaths;
         let paNewCases = parseInt(paTotalCases) - parseInt(paCasesYesterday);
         let paNewDeaths = parseInt(paTotalDeaths) - parseInt(paDeathsYesterday);
-        console.log("STATE DATA SET");
         localStorage.setItem("stateDataByFips",JSON.stringify(stateDataByFips));
       });
       return stateDataByFips;
@@ -124,7 +117,6 @@ export const Corona = (props) => {
   }
 
   async function buildCoronaMap() {
-    console.log("building corona map");
     var svg = d3.select("#mapsvg").style("margin-top","0px").style("display","none").style("background-color","#A2A2A2");
     var path = d3.geoPath();
     var tooltipHeight = 60;
@@ -148,7 +140,6 @@ export const Corona = (props) => {
     const stateDataByFips = await getStateCoronaData();
     // get county extent and county colorscale
     let countyCasesAsList = Object.keys(countyDataByFips).map(key => countyDataByFips[key][0]);
-    console.log(countyDataByFips);
     var countyExtent = d3.extent(countyCasesAsList, function(d) {return parseInt(d.cases)});
     countyExtent[0] = 1;
     var countyColorScale = d3.scaleLog()
@@ -170,9 +161,6 @@ export const Corona = (props) => {
       if (exceptional != null) {
         caseData = countyDataByFips[exceptional[0]] != null ? countyDataByFips[exceptional[0]] : null;
       } else {
-        if (county.properties.id == "36029") {
-          console.log("Erie data" + console.log(countyDataByFips[county.properties.id]))
-        }
         caseData = countyDataByFips[county.properties.id] != null ? countyDataByFips[county.properties.id] : null;
       }
       if (caseData != null) {
@@ -198,11 +186,7 @@ export const Corona = (props) => {
 
     // get state extent and state colorscale
     let stateCasesAsList = Object.keys(stateDataByFips).filter(key => Object.keys(stateIds).includes(key)).map(key => stateDataByFips[key][0]);
-    console.log(stateIds);
-    console.log(stateCasesAsList);
     var stateExtent = d3.extent(stateCasesAsList, function(d) {return parseInt(d.cases)});
-    console.log("state extent");
-    console.log(stateExtent);
     stateExtent[0] = stateExtent[0] == 0 ? 1 : stateExtent[0];
     var stateColorScale = d3.scaleLog()
       .domain(stateExtent)
@@ -240,8 +224,6 @@ export const Corona = (props) => {
 
     var countiesVisible = false;
     function drawCounties() {
-      console.log(topojson.feature(usTopoJson, usTopoJson.objects.counties).features);
-      console.log(g.selectAll("path"));
       g.selectAll("path")
         .data(topojson.feature(usTopoJson, usTopoJson.objects.counties).features)
         .enter()
@@ -249,10 +231,6 @@ export const Corona = (props) => {
           .attr("class","counties")
           .attr("d", path)
           .attr("id", (d) => {
-            if (d.id == 36095) {
-              console.log("drawing")
-              console.log(d);
-            }
             return "county" + d.id;
           })
           .style("stroke","#D2D2D2")
@@ -262,7 +240,6 @@ export const Corona = (props) => {
           .on("mouseover", mouseover)
           .on("mousemove",mousemove)
           .on("mouseout",mouseout);
-        console.log("setting counties visible to true");
       countiesVisible = true;
     }
     function drawStateBorders() {
@@ -351,11 +328,7 @@ export const Corona = (props) => {
           .style("opacity", 0) 
     }
     function clicked() {
-      console.log(d3.event);
-      console.log("attempting to get county id...");
-      console.log(d3.event.target.__data__.properties.id);
       var id = d3.event.target.__data__.properties.id;
-      console.log(JSON.parse(localStorage.getItem("countyDataByFips"))[id]);
     }
 
     function zoomed() {
@@ -363,7 +336,6 @@ export const Corona = (props) => {
       // g.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")"); // not in d3 v4
       g.attr("transform", d3.event.transform); // updated for d3 v4
       if (d3.event.transform.k > 4) {
-        console.log("counties visible " + countiesVisible);
         if (!countiesVisible) {
           removePaths();
           drawCounties();
