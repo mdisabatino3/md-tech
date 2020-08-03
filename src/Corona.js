@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import * as d3 from "d3";
 import * as topojson from "topojson";
+import {Transform} from "d3-zoom/src/transform"
 import * as moment from "moment";
 import "./Corona.css";
+import { polygonContains } from "d3";
 
 export const Corona = (props) => {
   const [usData, setUsData] = useState({});
@@ -192,8 +194,9 @@ export const Corona = (props) => {
       .domain(stateExtent)
       .range(["#FFFFFF", '#710019']);
 
-    // map state corona data to state geometries
-    usTopoJson.objects.states.geometries.forEach(function(state) {
+    topojson.feature(usTopoJson, usTopoJson.objects.states).features.forEach((state) => {
+      // console.log(state);
+      console.log(state);
       state.properties.id = state.id;
       let caseData;
       let newCases;
@@ -220,6 +223,7 @@ export const Corona = (props) => {
       state.properties.newDeaths = newDeaths;
       state.properties.numCases = casesToday;
       state.properties.numDeaths = deathsToday;
+      state.properties.center = path.centroid(state);
     });
 
     var countiesVisible = false;
@@ -233,6 +237,7 @@ export const Corona = (props) => {
           .attr("id", (d) => {
             return "county" + d.id;
           })
+          .attr("clip-path", "url(#clip)")
           .style("stroke","#D2D2D2")
           .style("opacity",0.7)
           .style("fill", (d) => d.properties.color)
@@ -282,8 +287,8 @@ export const Corona = (props) => {
 
 
     function mouseover() {
-      let path = d3.select(this).style("opacity",1).style("stroke","#aa0026");
-      let dataProperties = path.data()[0].properties;
+      let focus = d3.select(this).style("opacity",1).style("stroke","#aa0026");
+      let dataProperties = focus.data()[0].properties;
       let countyId = dataProperties.id;
       let numCases = dataProperties.numCases !== 0 ? dataProperties.numCases : "no cases reported";
       let numDeaths = dataProperties.numDeaths !== 0 ? dataProperties.numDeaths : "no deaths reported";
@@ -327,14 +332,40 @@ export const Corona = (props) => {
       tooltip   
           .style("opacity", 0) 
     }
-    function clicked() {
+    function clicked(d) {
+      console.log(d);
       var id = d3.event.target.__data__.properties.id;
     }
+    var firstZoom = false;
+    function zoomed(d) {
+      // d3.select('#boundingPath').remove();
 
-    function zoomed() {
       g.style("stroke-width", 1.5 / d3.event.transform.k + "px");
       // g.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")"); // not in d3 v4
       g.attr("transform", d3.event.transform); // updated for d3 v4
+      Object.assign(Transform.prototype, {
+        invertY(y) {
+          const scaleY = this.ky || this.k;
+          return (y - this.y) / scaleY;
+        },
+        scaleY(k) {
+          this.ky = k;
+          return this;
+        },
+        toString() {
+          const translate = `translate(${this.x},${this.y})`;
+          const scale = `scale(${this.k},${this.ky || this.k})`;
+          return `${translate} ${scale}`;
+        }
+      });
+      let temp = {...d3.event.transform};
+      let kx = temp.k;
+      var clipRect = d3.select("#clipRect");
+      const myTransform = (new Transform(1 / kx, (-temp.x)/kx, (-temp.y)/kx));
+      if (firstZoom) {
+        clipRect.attr("transform",myTransform.toString());
+      }
+
       if (d3.event.transform.k > 4) {
         if (!countiesVisible) {
           removePaths();
@@ -351,6 +382,7 @@ export const Corona = (props) => {
           countiesVisible = false;
         }
       }
+      firstZoom = true;
     }
 
     // Exceptions for New York, Kings, Queens, Bronx, Richmond -> New York City
@@ -371,10 +403,20 @@ export const Corona = (props) => {
       d3.select("#mapsvg").style("display", "block");
       d3.select(".loader").style("display","none");
     }
+    function setClip() {
+      var mapBBox = svg.node().getBoundingClientRect();
+      var clip = svg.append("defs").append("clipPath")
+        .attr("id", "clip")
+        .append("rect")
+        .attr("id","clipRect")
+        .attr("width", mapBBox.width)
+        .attr("height", mapBBox.height);
+    }
 
-    svg.call(zoom)
-      .call(zoom.transform, d3.zoomIdentity.translate(250,50).scale(0.8));
     showMap();
+    setClip();
+    svg.call(zoom)
+      .call(zoom.transform, d3.zoomIdentity.translate(0,0).scale(1));
   }
   return(
     <>
