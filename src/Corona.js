@@ -9,10 +9,28 @@ import { polygonContains } from "d3";
 export const Corona = (props) => {
   const [usData, setUsData] = useState({});
   useEffect(() => {
+    checkLocalStorageTimestamp();
     buildCoronaMap();
     getUsTopoJson();
     getStateCoronaData();
   }, []);
+  function checkLocalStorageTimestamp() {
+    let now = moment();
+    console.log("now:")
+    console.log(now.toString());
+    let thirtyMinutesAgo = now.subtract(30,'minutes');
+    console.log("thirty minutes ago:")
+    console.log(thirtyMinutesAgo.toString());
+    if (!localStorage.getItem("timestamp")) {
+      localStorage.setItem("timestamp",now.toString());
+    }
+    console.log("test:")
+    console.log(moment(localStorage.getItem("timestamp")).isBefore(thirtyMinutesAgo));
+    if (moment(localStorage.getItem("timestamp")).isBefore(thirtyMinutesAgo)) {
+      localStorage.clear();
+      localStorage.setItem("timestamp",now.toString());
+    }
+  }
   async function getCountyCoronaData() {
     if (!localStorage.getItem("countyDataByFips")) {
       var countyDataByFips = {};
@@ -195,8 +213,6 @@ export const Corona = (props) => {
       .range(["#FFFFFF", '#710019']);
 
     topojson.feature(usTopoJson, usTopoJson.objects.states).features.forEach((state) => {
-      // console.log(state);
-      console.log(state);
       state.properties.id = state.id;
       let caseData;
       let newCases;
