@@ -143,7 +143,7 @@ export const Corona = (props) => {
     var tooltipWidth = 200;
 
     var zoom = d3.zoom()
-      .scaleExtent([1,8])
+      .scaleExtent([1,9])
       .on("zoom", zoomed);
 
     var g = svg.append("g").attr("id","mapG");
@@ -382,7 +382,7 @@ export const Corona = (props) => {
         clipRect.attr("transform",myTransform.toString());
       }
 
-      if (d3.event.transform.k > 4) {
+      if (d3.event.transform.k > 5) {
         if (!countiesVisible) {
           removePaths();
           drawCounties();
